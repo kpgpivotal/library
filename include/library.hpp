@@ -9,11 +9,21 @@
 #define INCLUDE_LIBRARY_HPP_
 
 #include <iostream>
+#include <string>
+
+
+
 using namespace std;
 
 class Library {
 	public:
+		Library( string name);
 		void launch();
+
+	private:
+		string mName;
+		int show_menu();
+
 };
 
 

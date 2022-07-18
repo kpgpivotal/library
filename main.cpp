@@ -12,7 +12,7 @@ using namespace std;
 
 int main(int argc, char **argv) {
 
-	Library theLibrary;
+	Library theLibrary("Exodus");
 
 	theLibrary.launch();
 
