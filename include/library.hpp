@@ -10,19 +10,25 @@
 
 #include <iostream>
 #include <string>
-
-
+#include "utils.hpp"
+#include "person.hpp"
+#include "librarian.hpp"
 
 using namespace std;
+
+const int 	EXIT_MENU_CHOICE = 10;
 
 class Library {
 	public:
 		Library( string name);
 		void launch();
+		int add_book();
 
 	private:
 		string mName;
 		int show_menu();
+		int process_user_choice( int choice);
+		Librarian*  mpLibrarian;
 
 };
 
