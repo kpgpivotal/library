@@ -1,0 +1,6 @@
+# project files
+*.cproject
+*.project
+*.settings
+*.vscode
+build/
