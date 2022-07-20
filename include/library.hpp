@@ -21,6 +21,8 @@ const int 	EXIT_MENU_CHOICE = 10;
 class Library {
 	public:
 		Library( string name);
+		Library( Library& rhs ) = delete;
+		Library operator= ( Library& rhs ) = delete;
 		void launch();
 		int add_book();
 
