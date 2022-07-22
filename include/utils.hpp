@@ -9,6 +9,8 @@
 #include <cctype>
 #include <algorithm>
 
+#include <boost/log/trivial.hpp>
+
 
 
 using namespace std;
@@ -25,6 +27,7 @@ int case_insensitive_match(string s1, string s2);
 void print_line();
 int read_numeric_input();
 int read_numeric_input(string mesage);
+void log_info(string info);
 
 
 #endif

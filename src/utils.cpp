@@ -146,3 +146,8 @@ int read_numeric_input(string message){
 }
 
 
+void log_info(string the_info){
+    BOOST_LOG_TRIVIAL(info) << the_info;
+}
+
+
