@@ -3,7 +3,7 @@ cmake_minimum_required (VERSION 3.6)
 project (library)
 add_subdirectory(src)
 
-set(BOOST_ROOT "/home/kishore/boost_1_79_0/stage")
+
 set(Boost_USE_STATIC_RUNTIME FALSE)
 set(Boost_USE_STATIC_LIBS TRUE)
 set(Boost_USE_MULTITHREADED TRUE)
@@ -21,12 +21,18 @@ message(STATUS "Boost version: ${Boost_VERSION}")
 
 include_directories (${Boost_INCLUDE_DIR})
 
+add_definitions(-DBOOST_LOG_DYN_LINK)
+
 add_executable(${PROJECT_NAME} main.cpp)
 
-
 target_include_directories(${PROJECT_NAME} PUBLIC ${Boost_INCLUDE_DIRS}) 
+
+message(" Boost_LIBRARIES " ${Boost_LIBRARIES})
+
 
 target_link_libraries(${PROJECT_NAME} PUBLIC   ${Boost_LIBRARIES}
   PRIVATE  library_lib
   
   )
+
+  

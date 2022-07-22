@@ -15,7 +15,10 @@ int main(int argc, char **argv) {
 
 	Library theLibrary("Exodus");
 	
-	log_info("Testdrive boost looger");
+	//init_logging();
+	log_info("Testdrive boost logger11");
+	log_debug("Testdrive boost debug logger22");
+
 	theLibrary.launch();
 
 	return 0;

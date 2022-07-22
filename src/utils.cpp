@@ -146,8 +146,24 @@ int read_numeric_input(string message){
 }
 
 
+
+void init_logging()
+{
+   logging::add_file_log("log.txt");
+    
+    logging::core::get()->set_filter
+    (
+        logging::trivial::severity >= logging::trivial::debug
+    );
+
+}
+
 void log_info(string the_info){
+    init_logging();
     BOOST_LOG_TRIVIAL(info) << the_info;
 }
 
-
+void log_debug(string the_message){
+    init_logging();
+    BOOST_LOG_TRIVIAL(debug) << the_message;
+}

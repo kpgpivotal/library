@@ -9,6 +9,7 @@ Library::Library( string name) : mName {name} {
 void Library::launch() {
 
 	cout << "Starting the Library application..." << endl;
+	
 	mpLibrarian = new Librarian("Anthony", " Gates","librarian@library.com", "Villa 1, Posh Avenue, CA");
 	message(mpLibrarian->getName());
 
