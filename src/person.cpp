@@ -10,7 +10,7 @@ Person::Person(string firstName, string lastName, string email, string address)
 
 }
 
-string Person::getName(){
+string const Person::getName() const {
     return mFirstName + " " + mLastName;
 }
 

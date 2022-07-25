@@ -1,6 +1,8 @@
 #include "library.hpp"
 #include "utils.hpp"
 #include "librarian.hpp"
+#include "author.hpp"
+#include "book.hpp"
 
 Library::Library( string name) : mName {name} {
 
@@ -60,6 +62,11 @@ int Library::process_user_choice( int choice) {
 			break;
 		}
 
+		case 4 : {
+			print_library_by_bookname();
+			break;
+		}
+
 		default : {
 			message("Invalid input. Please try again");
 		}
@@ -69,6 +76,25 @@ int Library::process_user_choice( int choice) {
 
 int Library::add_book(){
 	message("Adding Book...");
+	Author author{"Charles", "Petzold", "charles@microsoft.com", "#1, Royal street, New York"};
+	Book book1{"Windows Programming", author, 10};
+	mBookList.push_back(book1);
+
+	Author author2{"Brian", "Kernighan", "brian@att.com", "#2, ATT street, CA"};
+	Author author3{"Dennis", "Ritchie", "dennis@bdu.com", "#1, Royal street, CA"};
+	Book book2{"The C Programming Language", author2, author3, 10};
+	mBookList.push_back(book2);
+
+
+	return 1;
+}
+
+
+int Library::print_library_by_bookname(){
+	cout << "Name              \t\tAuthor(s)      \'Total quantity\'  \'Borrowed quantity\'" << endl ;
+	for (const Book theBook : mBookList) {
+        cout << theBook;
+    }
 
 	return 1;
 }
