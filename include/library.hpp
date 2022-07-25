@@ -13,6 +13,7 @@
 #include "utils.hpp"
 #include "person.hpp"
 #include "librarian.hpp"
+#include "book.hpp"
 
 using namespace std;
 
@@ -31,6 +32,8 @@ class Library {
 		int show_menu();
 		int process_user_choice( int choice);
 		Librarian*  mpLibrarian;
+		vector<Book> mBookList;
+		int print_library_by_bookname();
 
 };
 
