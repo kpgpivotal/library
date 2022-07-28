@@ -1,7 +1,7 @@
 #include "utils.hpp"
 
 
-char get_input(string prompt){
+char get_input_char(string prompt){
     char input;
     bool valid_input{};
 
@@ -137,12 +137,122 @@ int read_numeric_input(string message){
             continue;
         }
         else  {
-            cin.clear();
+            //cin.clear();
             break;
         }
     }
 
+     
     return num;
 }
+
+string get_input_string(string prompt){
+    string input{};
+
+    cout <<  prompt << " : " ;
+    std::getline(std::cin, input);
+    
+    return input;
+}
+
+string get_input_email(string prompt){
+    string email{};
+
+    while (true) {
+        cout <<  prompt << " : " ;
+        std::getline(std::cin, email);
+        if ( is_valid_email(email) ) {
+            break;
+        }
+        cout <<  "Invalid email. Please try again." << endl;
+    }
+        
+    return email;
+}
+
+
+bool is_starts_with(string theString, string prefix){
+
+    std::for_each(theString.begin(), theString.end(), [](char & c) {
+        c = ::tolower(c);
+    });
+
+    std::for_each(prefix.begin(), prefix.end(), [](char & c) {
+        c = ::tolower(c);
+    });
+
+    //message(" String : " + theString);
+    //message(" prefix : " + prefix);
+
+    bool isPrefix = prefix.size() <= theString.size() &&
+    std::mismatch(prefix.begin(), prefix.end(),
+        theString.begin(), theString.end()).first == prefix.end();
+
+    return isPrefix;
+}
+
+// Function to check the character
+// is an alphabet or not
+bool isChar(char c)
+{
+    return ((c >= 'a' && c <= 'z')
+            || (c >= 'A' && c <= 'Z'));
+}
+  
+// Function to check the character
+// is an digit or not
+bool isDigit(const char c)
+{
+    return (c >= '0' && c <= '9');
+}
+  
+// Function to check email id is
+// valid or not
+bool is_valid_email(string email)
+{
+    // Check the first character
+    // is an alphabet or not
+    if (!isChar(email[0])) {
+  
+        // If it's not an alphabet
+        // email id is not valid
+        return 0;
+    }
+    // Variable to store position
+    // of At and Dot
+    int At = -1, Dot = -1;
+  
+    // Traverse over the email id
+    // string to find position of
+    // Dot and At
+    for (int i = 0;
+         i < email.length(); i++) {
+  
+        // If the character is '@'
+        if (email[i] == '@') {
+  
+            At = i;
+        }
+  
+        // If character is '.'
+        else if (email[i] == '.') {
+  
+            Dot = i;
+        }
+    }
+  
+    // If At or Dot is not present
+    if (At == -1 || Dot == -1)
+        return 0;
+  
+    // If Dot is present before At
+    if (At > Dot)
+        return 0;
+  
+    // If Dot is present at the end
+    return !(Dot >= (email.length() - 1));
+}
+
+
 
 

@@ -1,8 +1,8 @@
 #include "book.hpp"
 
-
+//Book::Book(): mName{name}, mTotalQuantity{quantity} mTotalQuantity{}, mBorrowedQuantity{} {}
 Book::Book( string name,  Author author, int quantity) : mName{name} ,
-        mTotalQuantity{quantity} 
+        mTotalQuantity{quantity}
 {
     mId = ++BOOK_ID;
     mAuthorList.push_back(author);
@@ -25,7 +25,7 @@ Book::Book( string name,  Author author, Author author2,int quantity): mName{nam
 
 
 ostream& operator<< (ostream& os, const Book& rhs){
-    os << endl << rhs.mId << "\t" << rhs.mName << "\t" << rhs.mAuthorName << "\t" << rhs.mTotalQuantity << "\t" << rhs.mBorrowedQuantity;
+    os << endl << rhs.mId << " " << rhs.mName << " " << rhs.mAuthorName << "\t" << rhs.mTotalQuantity << "\t" << rhs.mBorrowedQuantity;
     return os;
 }
 
@@ -33,7 +33,7 @@ string Book::getAuthors(){
     string author_names{};
     bool is_first{true};
 
-    for (const Person theauthor : mAuthorList) {
+    for ( Author theauthor : mAuthorList) {
         if ( true == is_first) {
             is_first = false;
         }
@@ -58,3 +58,30 @@ bool Book::isAvailable(){
 
     return false;
 }
+
+string Book::getName() const {
+    return mName;
+}
+
+bool Book::operator< (const Book& rhs){
+    if  ( mName < (rhs.mName) ){
+        return true;
+    }
+
+    return false;
+}
+
+bool Book::operator== (const Book& rhs){
+    return ( mName.compare(rhs.mName) == 0);
+}
+
+Book& Book::operator+= (const Book& rhs){
+    mTotalQuantity += rhs.mTotalQuantity;
+    mBorrowedQuantity += rhs.mBorrowedQuantity;
+    return *this;
+}
+
+        
+long Book::getId() const {
+    return mId;
+}        

@@ -9,7 +9,7 @@
 using namespace std;
 
 class Author : public Person {
-    friend ostream& operator<< (ostream& os, const Author& rhs);
+    friend ostream& operator<< (ostream& os,  Author& rhs);
     public:
         Author(string mFirstName, string mLastName, string mEmail, string maddress);
 

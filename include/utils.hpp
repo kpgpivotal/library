@@ -8,12 +8,17 @@
 #include <stdlib.h>
 #include <cctype>
 #include <algorithm>
-
+#include <boost/algorithm/string.hpp>
+#include <string_view>
+#include <bits/stdc++.h>
 
 
 using namespace std;
+using namespace std::literals;
 
-char get_input(string prompt);
+char get_input_char(string prompt);
+string get_input_string(string prompt);
+string get_input_email(string prompt);
 char getCharValidInput(string prompt, char validValue1, char validValue2);
 
 void showError(string errorMessage);
@@ -25,6 +30,9 @@ int case_insensitive_match(string s1, string s2);
 void print_line();
 int read_numeric_input();
 int read_numeric_input(string mesage);
+bool is_starts_with(string theString,string prefix);
+bool isDigit(const char c);
+bool is_valid_email(string email);
 
 
 #endif

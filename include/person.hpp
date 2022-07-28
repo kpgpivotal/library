@@ -9,8 +9,9 @@ using namespace std;
 class Person {
     public:
         Person(string mFirstName, string mLastName, string mEmail, string maddress);
-        virtual const string getName() const;
-        virtual string getEmail();
+        Person(string firstName, string email);
+        virtual  string getName() const;
+        virtual string getEmail() const;
 
     private:
         string mFirstName;
