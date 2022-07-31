@@ -43,6 +43,7 @@ int Library::show_menu(){
 
 		//message("Invalid value. Please enter numeric value.");
 		std::getline(std::cin, input);
+		
 		print_line();
 		try{
 			choice = stoi(input);
@@ -99,6 +100,11 @@ int Library::process_user_choice( int choice) {
 			break;
 		}
 
+		case 8 : {
+			return_book();
+			break;
+		}
+
 		case 9 : {
 			print_members();
 			break;
@@ -108,6 +114,44 @@ int Library::process_user_choice( int choice) {
 			message("Invalid input. Please try again");
 		}
 	}
+	return 1;
+}
+
+int Library::return_book(){
+	string email{};
+	long book_id{};
+	Member *borrower_ptr = nullptr;
+
+	email = get_input_email(EMAIL_INPUT_PROMPT);
+	borrower_ptr = get_member_by_email( email);
+	if ( nullptr == borrower_ptr ){
+
+		return 0;
+	}
+
+	book_id = borrower_ptr->return_book();
+	if (0 == book_id) {
+		message("No book is borrowed by " + borrower_ptr->getName() + ".");
+		return 0;
+	}
+
+	// return 
+	Book *theBookPtr = get_book_by_id( book_id);
+	if (nullptr == theBookPtr) {
+		message("No book is borrowed by " + borrower_ptr->getName() + ".");
+		return 0;
+	}
+
+	Book *updated_book_ptr = theBookPtr->return_book(*borrower_ptr);
+	if (nullptr == updated_book_ptr){
+		message("Unable to return the book  borrowed by " + borrower_ptr->getName() + ".");
+		return 0;
+	}
+
+	
+	// update list 
+	std::replace(mBookList.begin(), mBookList.end(), *theBookPtr, *updated_book_ptr);
+	
 	return 1;
 }
 
@@ -137,7 +181,8 @@ int Library::borrow_book(){
 	}
 	
 	// borrow
-	theBookPtr->borrow(*borrower_ptr);
+	theBookPtr->borrow_book(*borrower_ptr);
+	borrower_ptr->borrow_book(book_id);
 	// update list 
 	std::replace(mBookList.begin(), mBookList.end(), *theBookPtr, *theBookPtr);
 	

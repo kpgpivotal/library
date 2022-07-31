@@ -86,14 +86,29 @@ long Book::getId() const {
     return mId;
 }     
 
-int Book::borrow(Member member){
+int Book::borrow_book(Member member){
     if (isAvailable()) {
         ++mBorrowedQuantity;
         mBorrowedMemberList.push_back(member);
-        message("Book " + mName + " issued to " + member.getName() + ".");
+        message("Book " + mName + " is issued to " + member.getName() + ".");
         return 1;
     }
 
     message("Book " + mName + " is not avialble for borrowing. ");
     return 0;
+}
+
+Book* Book::return_book(Member member){
+    --mBorrowedQuantity;
+
+    auto itr  = find(mBorrowedMemberList.begin(), mBorrowedMemberList.end(), member);
+	if ( itr != mBorrowedMemberList.end()) {
+        mBorrowedMemberList.erase(itr);
+        message("Book " + mName + " is returned by " + member.getName() + ".");
+        return this;
+    }
+
+    message("Book " + mName + " is not borrowed by " + member.getName() + ".");
+    return nullptr;
+
 }

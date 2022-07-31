@@ -54,6 +54,7 @@ class Library {
 		int print_members();
 		int add_user_to_list(Member new_member);
 		int borrow_book();
+		int return_book();
 		Member *get_member_by_email(string email);
 		Book *get_book_by_id(long id);
 

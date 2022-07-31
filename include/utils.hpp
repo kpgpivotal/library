@@ -17,6 +17,8 @@
 using namespace std;
 using namespace std::literals;
 
+const int INPUT_RETRY_COUNT = 3;
+
 char get_input_char(string prompt);
 string get_input_string(string prompt);
 string get_input_email(string prompt);

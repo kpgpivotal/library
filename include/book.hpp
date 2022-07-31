@@ -27,7 +27,8 @@ class Book {
         string getAuthors();
         bool isAvailable();
         vector<Author> getAuthorsList();
-        int borrow(Member member);
+        int borrow_book(Member member);
+        Book* return_book(Member member);
         string getName()const;
         long getId() const;
 

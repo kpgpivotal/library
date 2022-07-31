@@ -23,12 +23,15 @@ char get_input_char(string prompt){
 
 char getCharValidInput(string prompt, char validValue1, char validValue2){
    char input;
+   string str_input{};
     bool valid_input{};
 
     do {
         valid_input = false;
         cout << prompt << " : ";
-        cin >> input;
+        //cin >> input;
+        getline(std::cin, str_input);
+        input = str_input.at(0);
         if ( isalpha(input) == 0 ) {
             valid_input = false;
             cout << "\nNon character input. Please enter valid character" << endl;
@@ -49,7 +52,6 @@ char getCharValidInput(string prompt, char validValue1, char validValue2){
     while (valid_input == false);
 
     return  input;
-
 }
 
 
@@ -157,14 +159,21 @@ string get_input_string(string prompt){
 
 string get_input_email(string prompt){
     string email{};
+    int retry{0};
 
-    while (true) {
+    while (retry++ < INPUT_RETRY_COUNT) {
         cout <<  prompt << " : " ;
         std::getline(std::cin, email);
         if ( is_valid_email(email) ) {
             break;
         }
-        cout <<  "Invalid email. Please try again." << endl;
+        
+        message("Invalid email. Please try again.");
+    }
+
+    if (INPUT_RETRY_COUNT == retry  ) {
+        message("You have reached the limit of number of retires.");
+        return "";
     }
         
     return email;
