@@ -29,6 +29,7 @@ class Book {
         vector<Author> getAuthorsList();
         int borrow_book(Member member);
         Book* return_book(Member member);
+        bool is_already_borrowed_by_member(Member member);
         string getName()const;
         long getId() const;
 

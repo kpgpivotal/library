@@ -129,9 +129,10 @@ int Library::return_book(){
 		return 0;
 	}
 
-	book_id = borrower_ptr->return_book();
+	book_id = get_input_long(BOOK_ID_INPUT_PROMPT);
+
+	book_id = borrower_ptr->return_book(book_id);
 	if (0 == book_id) {
-		message("No book is borrowed by " + borrower_ptr->getName() + ".");
 		return 0;
 	}
 
@@ -159,6 +160,7 @@ int Library::borrow_book(){
 	string email{};
 	long book_id{};
 	Member *borrower_ptr = nullptr;
+	int borrow_check{};
 
 	email = get_input_email(EMAIL_INPUT_PROMPT);
 	borrower_ptr = get_member_by_email( email);
@@ -179,10 +181,19 @@ int Library::borrow_book(){
 	if ( 'N' == confirm_book) {
 		return 0;
 	}
-	
+	//check the maximum limit
+	if ( 0 == borrower_ptr->borrow_book(book_id)) {
+		return 0;
+	}
+
+
 	// borrow
-	theBookPtr->borrow_book(*borrower_ptr);
-	borrower_ptr->borrow_book(book_id);
+	borrow_check = theBookPtr->borrow_book(*borrower_ptr);
+	if (borrow_check == 0 ){
+		return 0;
+	}
+
+	
 	// update list 
 	std::replace(mBookList.begin(), mBookList.end(), *theBookPtr, *theBookPtr);
 	

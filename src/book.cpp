@@ -87,6 +87,12 @@ long Book::getId() const {
 }     
 
 int Book::borrow_book(Member member){
+    // check if the book is already borrowed by same member.
+    if ( true == is_already_borrowed_by_member( member)){
+         message("Book " + mName + " is already borrowed by the member. ");
+    return 0;
+    } 
+
     if (isAvailable()) {
         ++mBorrowedQuantity;
         mBorrowedMemberList.push_back(member);
@@ -111,4 +117,13 @@ Book* Book::return_book(Member member){
     message("Book " + mName + " is not borrowed by " + member.getName() + ".");
     return nullptr;
 
+}
+
+bool Book::is_already_borrowed_by_member(Member member){
+    auto itr  = find(mBorrowedMemberList.begin(), mBorrowedMemberList.end(), member);
+	if ( itr != mBorrowedMemberList.end()) {
+        return true;
+    }
+
+    return false;
 }
