@@ -170,6 +170,17 @@ string get_input_email(string prompt){
     return email;
 }
 
+long get_input_long(string prompt){
+    string input{};
+    long long_val{};
+  
+    cout <<  prompt << " : " ;
+    std::getline(std::cin, input);
+    long_val = stol(input);
+
+    return long_val;
+}
+
 
 bool is_starts_with(string theString, string prefix){
 

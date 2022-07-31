@@ -15,6 +15,7 @@ class Member : public Person {
         Member(string mFirstName, string mLastName, string mEmail, string maddress);
         Member(string mFirstName, string mEmail);
         
+        
 
 };
  

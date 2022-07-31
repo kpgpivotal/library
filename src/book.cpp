@@ -84,4 +84,16 @@ Book& Book::operator+= (const Book& rhs){
         
 long Book::getId() const {
     return mId;
-}        
+}     
+
+int Book::borrow(Member member){
+    if (isAvailable()) {
+        ++mBorrowedQuantity;
+        mBorrowedMemberList.push_back(member);
+        message("Book " + mName + " issued to " + member.getName() + ".");
+        return 1;
+    }
+
+    message("Book " + mName + " is not avialble for borrowing. ");
+    return 0;
+}

@@ -94,6 +94,11 @@ int Library::process_user_choice( int choice) {
 			break;
 		}
 
+		case 7 : {
+			borrow_book();
+			break;
+		}
+
 		case 9 : {
 			print_members();
 			break;
@@ -104,6 +109,74 @@ int Library::process_user_choice( int choice) {
 		}
 	}
 	return 1;
+}
+
+int Library::borrow_book(){
+	string email{};
+	long book_id{};
+	Member *borrower_ptr = nullptr;
+
+	email = get_input_email(EMAIL_INPUT_PROMPT);
+	borrower_ptr = get_member_by_email( email);
+	if ( nullptr == borrower_ptr ){
+
+		return 0;
+	}
+
+	//get the book
+	book_id = get_input_long(BOOK_ID_INPUT_PROMPT);
+	Book *theBookPtr = get_book_by_id(book_id);
+	message("Selected book is : " + theBookPtr->getName()  );
+	if (false == theBookPtr->isAvailable()){
+		message("Sorry this book in not avaialbel now. Try later.");
+		return 0;
+	}
+	char confirm_book = getCharValidInput("Do you want to proceed with borrowing? (Y/N)", 'Y', 'N');
+	if ( 'N' == confirm_book) {
+		return 0;
+	}
+	
+	// borrow
+	theBookPtr->borrow(*borrower_ptr);
+	// update list 
+	std::replace(mBookList.begin(), mBookList.end(), *theBookPtr, *theBookPtr);
+	
+	return 1;
+}
+
+Book* Library::get_book_by_id(long id){
+	if (mBookList.size() == 0 ) {
+		message(BOOK_LIST_EMPTY_MESSAGE);
+		return nullptr;
+	}
+
+	for (auto itr = mBookList.begin(); itr != mBookList.end(); ++itr) {
+		Book the_book = *itr;
+		if ( the_book.getId() == id){
+			return &(*itr);
+		}
+	}
+
+	message("Unable to find the Book with given id.");
+	return nullptr;
+}
+
+Member* Library::get_member_by_email(string email){
+	if (mMemberList.size() == 0 ) {
+		message(EMPTY_MEMBER_LIST_MESSAGE);
+		return nullptr;
+	}
+
+	for (auto itr = mMemberList.begin(); itr != mMemberList.end(); ++itr) {
+		Member the_member = *itr;
+		if (the_member.getEmail().compare(email) ==0 ) {
+			return &(*itr);
+		}
+
+	}
+
+	message(MEMBER_NOT_FOUND_WITH_GIVEN_EMAIL);
+		return nullptr;
 }
 
 int Library::print_members(){

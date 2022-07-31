@@ -6,6 +6,8 @@
 #include <vector>
 
 #include "author.hpp"
+#include "member.hpp"
+#include "utils.hpp"
 
 
 
@@ -25,6 +27,7 @@ class Book {
         string getAuthors();
         bool isAvailable();
         vector<Author> getAuthorsList();
+        int borrow(Member member);
         string getName()const;
         long getId() const;
 
@@ -37,6 +40,7 @@ class Book {
         int mTotalQuantity;
         int mBorrowedQuantity;
         vector<Author> mAuthorList;
+        vector<Member> mBorrowedMemberList;
 
 };
  
