@@ -32,6 +32,7 @@ class Book {
         bool is_already_borrowed_by_member(Member member);
         string getName()const;
         long getId() const;
+        string get_borrowers_names()const;
 
 
 

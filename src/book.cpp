@@ -23,6 +23,27 @@ Book::Book( string name,  Author author, Author author2,int quantity): mName{nam
 }
 
 
+string Book::get_borrowers_names() const{
+    string borrowers_names{};
+    bool is_first{true};
+    
+    for (const Member the_member : mBorrowedMemberList) {
+        if (is_first){
+            is_first = false;
+            borrowers_names.append(the_member.getName());
+        }
+        else {
+            borrowers_names.append(", ");
+            borrowers_names.append(the_member.getName() );
+        }
+        
+    }
+
+    return borrowers_names;
+}
+
+
+
 
 ostream& operator<< (ostream& os, const Book& rhs){
     os << endl << rhs.mId << " " << rhs.mName << " " << rhs.mAuthorName << "\t" << rhs.mTotalQuantity << "\t" << rhs.mBorrowedQuantity;
@@ -49,6 +70,7 @@ string Book::getAuthors(){
 
 vector<Author> Book::getAuthorsList(){
     return mAuthorList;
+
 }
 
 bool Book::isAvailable(){

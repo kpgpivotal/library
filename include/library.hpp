@@ -23,7 +23,7 @@ using namespace std;
 
 const int 	EXIT_MENU_CHOICE = 10;
 const string SEARCH_BOOKS_BY_PREFIX_PROMPT = "Please enter the books prefix to search ";
-const string EMAIL_INPUT_PROMPT = "Please enter email id of the the user: ";
+const string EMAIL_INPUT_PROMPT = "Please enter email id of the the user ";
 const string EMPTY_MEMBER_LIST_MESSAGE = "Memeber list is empty";
 const string MEMBER_NOT_FOUND_WITH_GIVEN_EMAIL = "Member with given email id not found!";
 const string BOOK_ID_INPUT_PROMPT = "Please enter Book's id : ";
@@ -57,6 +57,7 @@ class Library {
 		int return_book();
 		Member *get_member_by_email(string email);
 		Book *get_book_by_id(long id);
+		int borrowers_info();
 
 
 

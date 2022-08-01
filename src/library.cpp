@@ -79,6 +79,10 @@ int Library::process_user_choice( int choice) {
 			search_books_prefix();
 			break;
 		}
+		case 3 : {
+			borrowers_info();
+			break;
+		}
 
 		case 4 : {
 			print_library_by_id();
@@ -383,5 +387,19 @@ int Library::search_books_prefix(){
         
     }
 
+	return 1;
+}
+
+int Library::borrowers_info(){
+	string borrowers_names{};
+	message("\nBorrowed Books details:");
+	for (const Book theBook : mBookList) {
+		borrowers_names = theBook.get_borrowers_names();
+		if (borrowers_names.length() > 0) {
+			cout << theBook.getName() << " : " << borrowers_names << endl;
+		}
+		
+    }
+	cout << endl;
 	return 1;
 }
