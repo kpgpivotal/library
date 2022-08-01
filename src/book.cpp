@@ -1,6 +1,5 @@
 #include "book.hpp"
 
-//Book::Book(): mName{name}, mTotalQuantity{quantity} mTotalQuantity{}, mBorrowedQuantity{} {}
 Book::Book( string name,  Author author, int quantity) : mName{name} ,
         mTotalQuantity{quantity}
 {

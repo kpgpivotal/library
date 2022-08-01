@@ -1,9 +1,23 @@
 #include "library.hpp"
 #include "utils.hpp"
-//#include "librarian.hpp"
 #include "author.hpp"
 #include "book.hpp"
 #include "member.hpp"
+
+
+vector<Book> mBookList;
+		vector<Member> mMemberList;
+
+std::ostream & operator<<(std::ostream &os, const Library &lib)
+{
+    std::list<Book>::const_iterator it;
+
+	 for ( Book the_book : mBookList) {
+		os << '\n' << std::hex << "0x" << *it << std::dec << ' ' << the_book;
+	 }
+    return os;
+}
+
 
 Library::Library(string name ) :mName{name}{ }
 
@@ -14,6 +28,7 @@ void Library::launch() {
 	//message(mpLibrarian->getName());
 
 	show_menu();
+	save();
 }
 
 

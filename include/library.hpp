@@ -13,13 +13,28 @@
 #include <bits/stdc++.h>
 #include <unordered_set>
 #include <memory>
+#include <cstddef> 
+#include <iomanip>
+#include <fstream>
+
+
+#include <boost/archive/tmpdir.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/utility.hpp>
+#include <boost/serialization/list.hpp>
+#include <boost/serialization/assume_abstract.hpp>
+
 #include "utils.hpp"
 #include "person.hpp"
 //#include "librarian.hpp"
 #include "book.hpp"
 #include "member.hpp"
 
+
 using namespace std;
+using namespace boost::archive;
 
 const int 	EXIT_MENU_CHOICE = 10;
 const string SEARCH_BOOKS_BY_PREFIX_PROMPT = "Please enter the books prefix to search ";
@@ -31,6 +46,28 @@ const string BOOK_LIST_EMPTY_MESSAGE = "Book list is empty";
 
 bool compare_by_id(Book& b1, Book& b2);
 class Library {
+	friend class boost::serialization::access;
+    friend std::ostream & operator<<(std::ostream &os, const Library &lib);
+ 
+
+	template <typename Archive>
+	void serialize(Archive &ar, Library &lib, const unsigned int version)
+	{
+		ar & lib.mName;
+		//ar & lib.mBookList;
+		//ar & lib.mMemberList;
+	}
+
+    void save() const
+    {
+		std::ofstream file{"lib_archive.txt"};
+ 		text_oarchive oa{file};
+       
+        oa << mName;
+        //oa << mBookList;
+		//oa << mMemberList;
+    }
+
 	public:
 		Library(string name);
 		Library( Library& rhs ) = delete;
@@ -42,10 +79,8 @@ class Library {
 		string mName;
 		int show_menu();
 		int process_user_choice( int choice);
-		//Librarian*  mpLibrarian;
 		vector<Book> mBookList;
 		vector<Member> mMemberList;
-		//std::unordered_set<Book>* mpBookSet =nullptr;
 		int print_library_by_bookname();
 		int print_library_by_id();
 		int add_user();
@@ -59,11 +94,9 @@ class Library {
 		Book *get_book_by_id(long id);
 		int borrowers_info();
 
-
-
 };
 
-
+BOOST_CLASS_VERSION(Library, 1)
 
 
 #endif /* INCLUDE_LIBRARY_HPP_ */
