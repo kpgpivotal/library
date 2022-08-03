@@ -4,6 +4,10 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cereal/archives/json.hpp>
+#include <cereal/types/vector.hpp>
+#include <fmt/format.h>
+#include <fstream>
 
 #include "author.hpp"
 #include "member.hpp"
@@ -16,6 +20,9 @@ static long BOOK_ID = 0;
 
 class Book {
     friend ostream& operator<< (ostream& os, const Book& rhs);
+       // declare serialize as a friend for direct access to private data
+   template<typename Archive>
+   friend void serialize(Archive& archive, Book& record);
     
     public:
         //Book();
@@ -47,4 +54,15 @@ class Book {
 
 };
  
+// function template serialize is responsible for serializing and 
+// deserializing Record objects to/from the specified Archive
+template <typename Archive>
+void serialize(Archive& archive, Book& record) {
+   archive(cereal::make_nvp("mId", record.mId),
+      cereal::make_nvp("mAuthorName", record.mAuthorName),
+      cereal::make_nvp("mTotalQuantity", record.mTotalQuantity),
+      cereal::make_nvp("mAuthorList", record.mAuthorList),
+      cereal::make_nvp("mBorrowedMemberList", record.mBorrowedMemberList));
+}
+
 #endif

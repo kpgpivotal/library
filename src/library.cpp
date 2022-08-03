@@ -14,6 +14,15 @@ void Library::launch() {
 	//message(mpLibrarian->getName());
 
 	show_menu();
+
+	// serialize vector of Records to JSON and store in text file
+   if (std::ofstream output{"Library.json"}) {
+      cereal::JSONOutputArchive archive{output};
+      archive(cereal::make_nvp("mName", mName),
+	  cereal::make_nvp("mBookList", mBookList),
+	  cereal::make_nvp("mMemberList", mMemberList)
+	  ); // serialize records
+   }
 }
 
 

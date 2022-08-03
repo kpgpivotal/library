@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <string>
-
 #include "person.hpp"
 
 using namespace std;
@@ -14,5 +13,5 @@ class Author : public Person {
         Author(string mFirstName, string mLastName, string mEmail, string maddress);
 
 };
- 
+
 #endif
