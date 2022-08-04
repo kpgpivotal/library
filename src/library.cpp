@@ -1,11 +1,24 @@
 #include "library.hpp"
 #include "utils.hpp"
-//#include "librarian.hpp"
 #include "author.hpp"
 #include "book.hpp"
 #include "member.hpp"
 
-Library::Library() :mName{""}{ }
+
+vector<Book> mBookList;
+		vector<Member> mMemberList;
+
+std::ostream & operator<<(std::ostream &os, const Library &lib)
+{
+    std::list<Book>::const_iterator it;
+
+	 for ( Book the_book : mBookList) {
+		os << '\n' << std::hex << "0x" << *it << std::dec << ' ' << the_book;
+	 }
+    return os;
+}
+
+
 Library::Library(string name ) :mName{name}{ }
 
 int Library::save_data_file(){
@@ -51,8 +64,7 @@ void Library::launch() {
 	read_data_file();
 
 	show_menu();
-	save_data_file();
-	
+	save();
 }
 
 

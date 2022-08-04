@@ -13,16 +13,26 @@
 #include <bits/stdc++.h>
 #include <unordered_set>
 #include <memory>
-#include <vector>
-#include <cereal/archives/json.hpp>
-#include <cereal/types/vector.hpp>
-#include <fmt/format.h>
+#include <cstddef> 
+#include <iomanip>
 #include <fstream>
+
+
+#include <boost/archive/tmpdir.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/utility.hpp>
+#include <boost/serialization/list.hpp>
+#include <boost/serialization/assume_abstract.hpp>
+
 #include "utils.hpp"
 #include "book.hpp"
 #include "member.hpp"
 
+
 using namespace std;
+using namespace boost::archive;
 
 const int 	EXIT_MENU_CHOICE = 10;
 const string DATA_FILE_NAME = "library.json";
@@ -50,10 +60,8 @@ class Library {
 		string mName;
 		int show_menu();
 		int process_user_choice( int choice);
-		//Librarian*  mpLibrarian;
 		vector<Book> mBookList;
 		vector<Member> mMemberList;
-		//std::unordered_set<Book>* mpBookSet =nullptr;
 		int print_library_by_bookname();
 		int print_library_by_id();
 		int add_user();
@@ -81,8 +89,5 @@ class Library {
 
 
 };
-
-
-
 
 #endif /* INCLUDE_LIBRARY_HPP_ */
