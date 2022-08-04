@@ -5,9 +5,22 @@
 #include "book.hpp"
 #include "member.hpp"
 
+Library::Library() :mName{""}{ }
 Library::Library(string name ) :mName{name}{ }
 
 void Library::launch() {
+
+	// deserialize
+	// deserialize JSON from text file into vector of Records
+   if (std::ifstream input{"Library.json"}) {
+      cereal::JSONInputArchive archive{input};
+	  archive(mName); // deserialize records
+	  archive(mBookList);
+	  archive(mMemberList);
+	  
+      std::cout << "\nDeserialized records\n";
+    
+   }
 
 	cout << "Starting the Library application..." << endl;
 	//mpLibrarian = new Librarian("Anthony", " Gates","librarian@library.com", "Villa 1, Posh Avenue, CA");

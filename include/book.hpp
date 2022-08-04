@@ -25,7 +25,7 @@ class Book {
    friend void serialize(Archive& archive, Book& record);
     
     public:
-        //Book();
+        Book();
         Book( string name,  Author author, int quantity);
         Book( string name, Author author, Author author2, int quantity);
         bool operator<(const Book& rhs);
@@ -59,8 +59,10 @@ class Book {
 template <typename Archive>
 void serialize(Archive& archive, Book& record) {
    archive(cereal::make_nvp("mId", record.mId),
+    cereal::make_nvp("mName", record.mName),
       cereal::make_nvp("mAuthorName", record.mAuthorName),
       cereal::make_nvp("mTotalQuantity", record.mTotalQuantity),
+      cereal::make_nvp("mBorrowedQuantity", record.mBorrowedQuantity),
       cereal::make_nvp("mAuthorList", record.mAuthorList),
       cereal::make_nvp("mBorrowedMemberList", record.mBorrowedMemberList));
 }

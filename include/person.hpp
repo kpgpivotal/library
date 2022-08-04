@@ -19,6 +19,7 @@ class Person {
    friend void serialize(Archive& archive, Person& record);
 
     public:
+        Person();
         Person(string mFirstName, string mLastName, string mEmail, string maddress);
         Person(string firstName, string email);
         virtual  string getName() const;

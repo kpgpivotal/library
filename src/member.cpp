@@ -18,7 +18,7 @@ bool operator== (const Member& lhs, const Member& rhs){
     return false;
 }
 
-
+Member::Member():Person( "",  "",  "",  "") {}
 Member::Member(string firstName, string lastName, string email, string address):
          Person( firstName,  lastName,  email,  address) {}
 

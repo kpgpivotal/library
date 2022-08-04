@@ -10,6 +10,7 @@ using namespace std;
 class Author : public Person {
     friend ostream& operator<< (ostream& os,  Author& rhs);
     public:
+        Author();
         Author(string mFirstName, string mLastName, string mEmail, string maddress);
 
 };

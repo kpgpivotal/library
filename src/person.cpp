@@ -1,6 +1,7 @@
 #include "person.hpp"
 #include "utils.hpp"
 
+Person::Person() : mFirstName{""},mLastName{""},mAddress{""} , mEmail{""} {}
 Person::Person(string firstName, string lastName, string email, string address)
     :  mEmail{email}  {
 

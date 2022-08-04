@@ -13,6 +13,11 @@
 #include <bits/stdc++.h>
 #include <unordered_set>
 #include <memory>
+#include <vector>
+#include <cereal/archives/json.hpp>
+#include <cereal/types/vector.hpp>
+#include <fmt/format.h>
+#include <fstream>
 #include "utils.hpp"
 #include "person.hpp"
 //#include "librarian.hpp"
@@ -31,7 +36,11 @@ const string BOOK_LIST_EMPTY_MESSAGE = "Book list is empty";
 
 bool compare_by_id(Book& b1, Book& b2);
 class Library {
+	template<typename Archive>
+   friend void serialize(Archive& archive, Library& record);
+
 	public:
+		Library();
 		Library(string name);
 		Library( Library& rhs ) = delete;
 		Library operator= ( Library& rhs ) = delete;
@@ -59,6 +68,14 @@ class Library {
 		Book *get_book_by_id(long id);
 		int borrowers_info();
 
+	// function template serialize is responsible for serializing and 
+	// deserializing Record objects to/from the specified Archive
+	template <typename Archive>
+	void serialize(Archive& archive, Library& record) {
+	archive(cereal::make_nvp("mName", record.mName),
+		cereal::make_nvp("mBookList", record.mBookList),
+		cereal::make_nvp("mMemberList", record.mMemberList));
+	}
 
 
 };

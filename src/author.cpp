@@ -1,5 +1,6 @@
 #include "author.hpp"
 
+Author::Author():Person( "",  "",  "",  "") {}
 Author::Author(string firstName, string lastName, string email, string address)
     :  Person( firstName,  lastName,  email,  address) {}
 
