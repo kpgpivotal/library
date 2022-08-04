@@ -11,8 +11,9 @@ Person::Person(string firstName, string lastName, string email, string address)
 
 }
 
-Person::Person(string firstName, string email) : mEmail{email} {
+Person::Person(string firstName, string lastName, string email) : mEmail{email} {
     mFirstName = capitalizeFirstLetter(firstName);
+    mLastName = capitalizeFirstLetter(lastName);
 }
 
 string  Person::getName() const{

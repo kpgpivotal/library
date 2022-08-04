@@ -8,36 +8,52 @@
 Library::Library() :mName{""}{ }
 Library::Library(string name ) :mName{name}{ }
 
-void Library::launch() {
-
-	// deserialize
-	// deserialize JSON from text file into vector of Records
-   if (std::ifstream input{"Library.json"}) {
-      cereal::JSONInputArchive archive{input};
-	  archive(mName); // deserialize records
-	  archive(mBookList);
-	  archive(mMemberList);
-	  
-      std::cout << "\nDeserialized records\n";
-    
-   }
-
-	cout << "Starting the Library application..." << endl;
-	//mpLibrarian = new Librarian("Anthony", " Gates","librarian@library.com", "Villa 1, Posh Avenue, CA");
-	//message(mpLibrarian->getName());
-
-	show_menu();
-
+int Library::save_data_file(){
 	// serialize vector of Records to JSON and store in text file
-   if (std::ofstream output{"Library.json"}) {
-      cereal::JSONOutputArchive archive{output};
-      archive(cereal::make_nvp("mName", mName),
-	  cereal::make_nvp("mBookList", mBookList),
-	  cereal::make_nvp("mMemberList", mMemberList)
-	  ); // serialize records
-   }
+	try {
+		if (std::ofstream output{DATA_FILE_NAME}) {
+			cereal::JSONOutputArchive archive{output};
+			archive(cereal::make_nvp("mName", mName),
+			cereal::make_nvp("mBookList", mBookList),
+			cereal::make_nvp("mMemberList", mMemberList)
+			); // serialize records
+		}
+		message("Saveded application data.");
+	}
+	catch(...) {
+		message("\nError in saving ing application data.");
+	}
+   return 1;
 }
 
+int Library::read_data_file(){
+	// deserialize
+	// deserialize JSON from text file into vector of Records
+	try {
+		if (std::ifstream input{DATA_FILE_NAME}) {
+			cereal::JSONInputArchive archive{input};
+			archive(mName); // deserialize records
+			archive(mBookList);
+			archive(mMemberList);
+			
+			message("\nRestored application data.");
+		}
+	}
+	catch(...) {
+		message("\nError in Restoring application data.");
+	}
+   return 1;
+}
+
+void Library::launch() {
+
+	cout << "Starting the Library application..." << endl;
+	read_data_file();
+
+	show_menu();
+	save_data_file();
+	
+}
 
 
 
@@ -272,21 +288,15 @@ int Library::print_members(){
 }
 
 int Library::add_user(){
-	string name{}, email{};
+	string fname{}, lname{}, email{};
 
-	//name = get_input_string("Please enter user name ");
-	//email = get_input_string("Please enter email ");
-	name = "Anil";
-	email = "anil@email.com";
-	Member new_member{name,email};
+	fname = get_input_string("Please enter user's first name ");
+	lname = get_input_string("Please enter user's last name ");
+	email = get_input_email("Please enter email ");
+	
+	Member new_member{fname, lname, email};
 	add_user_to_list(new_member);
 
-	name = "Binil";
-	email = "binil@email.com";
-	Member new_member2{name,email};
-	add_user_to_list(new_member2);
-
-	
 	return 1;
 }
 
@@ -310,24 +320,17 @@ int Library::add_user_to_list(Member new_member){
 }
 
 int Library::add_book(){
-	message("Adding Book...");
-	Author author{"Charles", "Petzold", "charles@microsoft.com", "#1, Royal street, New York"};
-	Book book1{"Windows Programming", author, 10};
+	string name{}, author_fname{}, author_lname{},author_email{};
+	int total_quantity{};
+
+	name = get_input_string("Please enter Book name ");
+	author_fname = get_input_string("Please enter author's first name ");
+	author_lname = get_input_string("Please enter author's last name ");
+	author_email = get_input_email("Please enter author's email ");
+	Author author{author_fname, author_lname, author_email, ""};
+	total_quantity = get_input_number("Please enter the quantitiy of books ");
+	Book book1{name, author, total_quantity};
 	check_add_new_book(book1);
-	
-
-	Author author2{"Brian", "Kernighan", "brian@att.com", "#2, ATT street, CA"};
-	Author author3{"Dennis", "Ritchie", "dennis@bdu.com", "#1, Royal street, CA"};
-	Author author4{"King", "George", "king@bdu.com", "#1, Royal street, CA"};
-
-	Book book2{"The C Programming Language", author2, author3, 10};
-	Book book3{"The Titanic", author4,  15};
-	Book book4{"Ant story", author4,  5};
-	check_add_new_book(book2);
-	check_add_new_book(book3);
-	check_add_new_book(book3);
-	check_add_new_book(book4);
-
 	return 1;
 }
 
@@ -418,7 +421,7 @@ int Library::borrowers_info(){
 	for (const Book theBook : mBookList) {
 		borrowers_names = theBook.get_borrowers_names();
 		if (borrowers_names.length() > 0) {
-			cout << theBook.getName() << " : " << borrowers_names << endl;
+			cout << theBook.getId() << " " << theBook.getName() << " : " << borrowers_names << endl;
 		}
 		
     }

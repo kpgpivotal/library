@@ -18,11 +18,19 @@ bool operator== (const Member& lhs, const Member& rhs){
     return false;
 }
 
-Member::Member():Person( "",  "",  "",  "") {}
-Member::Member(string firstName, string lastName, string email, string address):
-         Person( firstName,  lastName,  email,  address) {}
+Member::Member():mFirstName{""},mLastName{""},mAddress{""} , mEmail{""} {}
+Member::Member(string firstName, string lastName, string email, string address){
+            mFirstName = capitalizeFirstLetter(firstName);
+    mLastName = capitalizeFirstLetter(lastName);
+    mAddress = capitalizeFirstLetter(address);    
+    mEmail = email;
+}
 
-Member::Member(string firstName, string email):  Person( firstName,  email  ) {}
+Member::Member(string firstName,string lastName, string email) {
+    mFirstName = capitalizeFirstLetter(firstName);
+    mLastName = capitalizeFirstLetter(lastName);
+    
+}
 
 
 int  Member::borrow_book(long book_id){
@@ -48,6 +56,14 @@ long  Member::return_book(long book_id){
 
     message("This book is not borrowed by the member.");
     return 0;
+}
+
+string  Member::getName() const{
+    return mFirstName + " " + mLastName;
+}
+
+string Member::getEmail() const{
+    return mEmail;
 }
 
 

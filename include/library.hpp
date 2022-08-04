@@ -19,14 +19,13 @@
 #include <fmt/format.h>
 #include <fstream>
 #include "utils.hpp"
-#include "person.hpp"
-//#include "librarian.hpp"
 #include "book.hpp"
 #include "member.hpp"
 
 using namespace std;
 
 const int 	EXIT_MENU_CHOICE = 10;
+const string DATA_FILE_NAME = "library.json";
 const string SEARCH_BOOKS_BY_PREFIX_PROMPT = "Please enter the books prefix to search ";
 const string EMAIL_INPUT_PROMPT = "Please enter email id of the the user ";
 const string EMPTY_MEMBER_LIST_MESSAGE = "Memeber list is empty";
@@ -67,6 +66,9 @@ class Library {
 		Member *get_member_by_email(string email);
 		Book *get_book_by_id(long id);
 		int borrowers_info();
+		int save_data_file();
+		int read_data_file();
+
 
 	// function template serialize is responsible for serializing and 
 	// deserializing Record objects to/from the specified Archive

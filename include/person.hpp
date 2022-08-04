@@ -21,7 +21,7 @@ class Person {
     public:
         Person();
         Person(string mFirstName, string mLastName, string mEmail, string maddress);
-        Person(string firstName, string email);
+        Person(string firstName, string lastName, string email);
         virtual  string getName() const;
         virtual string getEmail() const;
 

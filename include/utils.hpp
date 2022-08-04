@@ -23,6 +23,7 @@ char get_input_char(string prompt);
 string get_input_string(string prompt);
 string get_input_email(string prompt);
 long get_input_long(string prompt);
+int get_input_number(string prompt);
 char getCharValidInput(string prompt, char validValue1, char validValue2);
 
 void showError(string errorMessage);

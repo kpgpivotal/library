@@ -190,6 +190,16 @@ long get_input_long(string prompt){
     return long_val;
 }
 
+int get_input_number(string prompt){
+    string input{};
+    int num_val{};
+  
+    cout <<  prompt << " : " ;
+    std::getline(std::cin, input);
+    num_val = stoi(input);
+
+    return num_val;
+}
 
 bool is_starts_with(string theString, string prefix){
 
